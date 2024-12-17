@@ -22,7 +22,7 @@ jobs:
   build-and-push:
     needs: version-check
     runs-on: ubuntu-latest
-    if: needs.version-check.output == 'success'
+    if: needs.version-check.output == 'Could not find any matches'
     steps:
       - name: Next Item
         id: next_item        
