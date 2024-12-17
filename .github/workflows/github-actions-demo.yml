@@ -17,11 +17,11 @@ jobs:
       - name: Version Check
         id: version_check
         run: |
-          if: steps.build.version-check.status == "Could not find any matches";
+          if: steps.regex_check.outputs == "Could not find any matches";
           then
             echo "Valid version."
           else 
-            echo ${{ steps.build.version-check.status }}
+            echo ${{ steps.regex_check.outputs }}
             exit 1
           fi
       - name: Next Item
