@@ -17,11 +17,11 @@ jobs:
       - name: Version Check
         id: version_check
         run: |
-          if: [[ ${{ steps.regex_check.outputs == 'Could not find any matches' }} ]];
+          if [[ "${{ github.event.head_commit.message }}" =~ \[run-stage-2\] ]];
           then
-            echo "Valid version."
+            echo "Valid commit message detected. stage 2 will run."
           else 
-            echo ${{ steps.regex_check.outputs }}
+            echo "Valid commit message not detected. stage 2 will not run."
             exit 1
           fi
       - name: Next Item
