@@ -14,16 +14,16 @@ jobs:
             regex_pattern: '^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)(-((0|[1-9][0-9]*|[0-9]*[a-zA-Z-][0-9a-zA-Z-]*)(\.(0|[1-9][0-9]*|[0-9]*[a-zA-Z-][0-9a-zA-Z-]*))*))?(\+([0-9a-zA-Z-]+(\.[0-9a-zA-Z-]+)*))?$'
             regex_flags: 'gim'
             search_string: "bogetv6"
-            
       - name: Version Check
         id: version_check
-        run: echo ${{ steps.regex_check.outputs.first_match }} >> conclusion
-        
-  build-and-push:
-    needs: version-check
-    runs-on: ubuntu-latest
-    if: needs.version-check.status == 'Could not find any matches'
-    steps:
+        run: |
+          if: steps.build.regex_check.output == "Failed to find matches";
+          then
+            echo "Valid version."
+          else 
+            echo ${{ steps.build.regex_check.output }}
+            exit 1
+          fi
       - name: Next Item
         id: next_item        
         run: echo "Hello, World!"
