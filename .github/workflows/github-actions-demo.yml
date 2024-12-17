@@ -4,7 +4,7 @@ on: [push]
 jobs:
   version-check:
     outputs:
-      status: ${{ steps.version_check.conclusion }}
+      status: ${{ steps.regex_check }}
     runs-on: ubuntu-latest
     steps:
       - name: Regex Check
@@ -13,15 +13,15 @@ jobs:
         with:
             regex_pattern: '^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)(-((0|[1-9][0-9]*|[0-9]*[a-zA-Z-][0-9a-zA-Z-]*)(\.(0|[1-9][0-9]*|[0-9]*[a-zA-Z-][0-9a-zA-Z-]*))*))?(\+([0-9a-zA-Z-]+(\.[0-9a-zA-Z-]+)*))?$'
             regex_flags: 'gim'
-            search_string: "bogetv6"
+            search_string: 'bogetv6'
       - name: Version Check
         id: version_check
         run: |
-          if: steps.build.regex_check.outputs == "Could not find any matches";
+          if: steps.build.version_check.status == "Could not find any matches";
           then
             echo "Valid version."
           else 
-            echo ${{ steps.build.regex_check.outputs }}
+            echo ${{ steps.build.version_check.status }}
             exit 1
           fi
       - name: Next Item
