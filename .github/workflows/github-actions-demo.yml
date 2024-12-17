@@ -3,6 +3,8 @@ run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 on: [push]
 jobs:
   version-check:
+    outputs:
+      status: ${{ steps.version_check.conclusion }}
     runs-on: ubuntu-latest
     steps:
       - name: Regex Check
@@ -20,6 +22,7 @@ jobs:
   build-and-push:
     needs: version-check
     runs-on: ubuntu-latest
+    if: needs.version-check.outputs.status == 'success'
     steps:
       - name: Next Item
         id: next_item        
