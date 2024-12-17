@@ -2,7 +2,7 @@ name: GitHub Actions Demo
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 on: [push]
 jobs:
-  build-and-push:
+  version-check:
     runs-on: ubuntu-latest
     steps:
       - name: Regex Check
@@ -16,3 +16,11 @@ jobs:
       - name: Version Check
         id: version_check
         run: echo ${{ steps.regex_check.outputs.first_match }}
+        
+  build-and-push:
+    needs: version-check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Next Item
+        id: next_item        
+        run: echo "Hello, World!"
