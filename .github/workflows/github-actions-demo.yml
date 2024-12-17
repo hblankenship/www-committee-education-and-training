@@ -17,12 +17,12 @@ jobs:
             
       - name: Version Check
         id: version_check
-        run: echo ${{ steps.regex_check.outputs.first_match }} >> $GITHUB_OUTPUT
+        run: echo ${{ steps.regex_check.outputs.first_match }} >> conclusion
         
   build-and-push:
     needs: version-check
     runs-on: ubuntu-latest
-    if: needs.version-check.output == 'Could not find any matches'
+    if: needs.version-check.status == 'Could not find any matches'
     steps:
       - name: Next Item
         id: next_item        
