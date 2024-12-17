@@ -4,7 +4,7 @@ on: [push]
 jobs:
   version-check:
     outputs:
-      status: ${{ steps.regex_check }}
+      status: ${{ steps.regex_check.outputs }}
     runs-on: ubuntu-latest
     steps:
       - name: Regex Check
