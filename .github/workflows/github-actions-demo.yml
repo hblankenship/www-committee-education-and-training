@@ -17,11 +17,11 @@ jobs:
       - name: Version Check
         id: version_check
         run: |
-          if [[ "${{ steps.regex_check.outputs }}" =~ \[Could not find any matches\] ]];
+          if [[ "${{ steps.regex_check.conclusion }}" == "Could not find any matches" ]];
           then
             echo "Valid commit message detected. stage 2 will run."
           else 
-            echo $ {{ steps.regex_check.outputs }}
+            echo $ {{ steps.regex_check.conclusion }}
             exit 1
           fi
       - name: Next Item
