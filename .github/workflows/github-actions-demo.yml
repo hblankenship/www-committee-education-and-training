@@ -7,24 +7,30 @@ jobs:
       status: ${{ steps.regex_check.first_match }}
     runs-on: ubuntu-latest
     steps:
-      - name: Regex Check
-        id: regex_check
-        uses: AsasInnab/regex-action@v1
-        with:
-            regex_pattern: '^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)(-((0|[1-9][0-9]*|[0-9]*[a-zA-Z-][0-9a-zA-Z-]*)(\.(0|[1-9][0-9]*|[0-9]*[a-zA-Z-][0-9a-zA-Z-]*))*))?(\+([0-9a-zA-Z-]+(\.[0-9a-zA-Z-]+)*))?$'
-            regex_flags: 'gim'
-            search_string: '2.1.1'
-          
+      # - name: Regex Check
+      #  id: regex_check
+      #  uses: AsasInnab/regex-action@v1
+      #  with:
+      #      regex_pattern: '^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)(-((0|[1-9][0-9]*|[0-9]*[a-zA-Z-][0-9a-zA-Z-]*)(\.(0|[1-9][0-9]*|[0-9]*[a-zA-Z-][0-9a-zA-Z-]*))*))?(\+([0-9a-zA-Z-]+(\.[0-9a-zA-Z-]+)*))?$'
+      #      regex_flags: 'gim'
+      #      search_string: '2.1.1'
+      
       - name: Version Check
         id: version_check
         run: |
-          if [[ "${{ steps.regex_check.outputs.first_match }}" != "" ]];
-          then
-            echo "Valid commit message detected. stage 2 will run."
-          else 
-            echo ${{ steps.regex_check.outputs.first_match }}
-            exit 1
+          if [[ "1.1.1" =~ ^ ^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)(-((0|[1-9][0-9]*|[0-9]*[a-zA-Z-][0-9a-zA-Z-]*)(\.(0|[1-9][0-9]*|[0-9]*[a-zA-Z-][0-9a-zA-Z-]*))*))?(\+([0-9a-zA-Z-]+(\.[0-9a-zA-Z-]+)*))?$]]; then
+              echo "Valid Version String"
+          else
+              echo "Not valid version string"
+              exit 1
           fi
+          # if [[ "${{ steps.regex_check.outputs.first_match }}" != "" ]];
+          # then
+          #   echo "Valid commit message detected. stage 2 will run."
+          # else 
+          #   echo ${{ steps.regex_check.outputs.first_match }}
+          #  exit 1
+          # fi
       - name: Next Item
         id: next_item        
         run: echo "Hello, World!"
