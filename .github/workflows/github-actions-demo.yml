@@ -18,7 +18,7 @@ jobs:
       - name: Version Check
         id: version_check
         run: |
-          if [[ "${{ steps.regex_check.first_match }}" == "Could not find any matches" ]];
+          if [[ "${{ steps.regex_check.first_match }}" != "" ]];
           then
             echo "Valid commit message detected. stage 2 will run."
           else 
