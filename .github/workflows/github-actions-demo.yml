@@ -16,7 +16,8 @@ jobs:
           if [[ TEST1 =~ TEST2 ]]; then
               echo "Valid Version String"
           else
-              echo "Not valid version string: " TEST2
+              echo TEST2
+              echo "Not valid version string: "
               exit 1
           fi
           
