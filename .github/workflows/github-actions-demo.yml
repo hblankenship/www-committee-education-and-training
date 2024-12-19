@@ -1,4 +1,7 @@
 name: GitHub Actions Demo
+env:
+  test_version: "0.0.0"
+  in_version: "1.dragon.1"
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 on: [push]
 jobs:
@@ -18,7 +21,9 @@ jobs:
       - name: Version Check
         id: version_check
         run: |
-          if [[ "1.dragon.1" =~ ^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)(-((0|[1-9][0-9]*|[0-9]*[a-zA-Z-][0-9a-zA-Z-]*)(\.(0|[1-9][0-9]*|[0-9]*[a-zA-Z-][0-9a-zA-Z-]*))*))?(\+([0-9a-zA-Z-]+(\.[0-9a-zA-Z-]+)*))?$ ]]; then
+          ${{ env.test_version }} = "1.dragon.1"
+          ${{ env.in_version }} = ^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)(-((0|[1-9][0-9]*|[0-9]*[a-zA-Z-][0-9a-zA-Z-]*)(\.(0|[1-9][0-9]*|[0-9]*[a-zA-Z-][0-9a-zA-Z-]*))*))?(\+([0-9a-zA-Z-]+(\.[0-9a-zA-Z-]+)*))?$
+          if [[ ${{ env.test_version }} =~ ${{ env.in_version }} ]]; then
               echo "Valid Version String"
           else
               echo "Not valid version string"
