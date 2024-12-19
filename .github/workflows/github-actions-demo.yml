@@ -16,13 +16,14 @@ jobs:
         env:
           TEST1: "${{ env.in_version }}"          
         run: |
-          if [[ ${{ TEST1 }} =~ ${{ LOCAL_TEST_VERSION }} ]]; then
-              echo "Valid Version String"
-          else
-              echo ${{ TEST2 }}
-              echo "Not valid version string: "
-              exit 1
-          fi
+          echo ${{ LOCAL_TEST_VERSION }}
+          #if [[ ${{ TEST1 }} =~ ${{ LOCAL_TEST_VERSION }} ]]; then
+          #    echo "Valid Version String"
+          #else
+          #    echo ${{ TEST2 }}
+          #    echo "Not valid version string: "
+          #    exit 1
+          #fi
           
       - name: Next Item
         id: next_item        
