@@ -1,7 +1,6 @@
 name: GitHub Actions Demo
 env:
   test_version: "0.0.0.0"
-  in_version: "1.1.1.1.1.1"
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 on: [push]
 jobs:
@@ -16,7 +15,7 @@ jobs:
               exit 1
           else
               echo "Valid version string"
-          
+          fi
       - name: Next Item
         id: next_item        
         run: echo "Hello, World!"
