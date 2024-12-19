@@ -8,13 +8,15 @@ jobs:
   version-check:
     runs-on: ubuntu-latest
     steps:
+      - name: Set Environment
+        id: set_env
+        run: echo "LOCAL_TEST_VERSION=$( $test_version =~ ^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)(-((0|[1-9][0-9]*|[0-9]*[a-zA-Z-][0-9a-zA-Z-]*)(\.(0|[1-9][0-9]*|[0-9]*[a-zA-Z-][0-9a-zA-Z-]*))*))?(\+([0-9a-zA-Z-]+(\.[0-9a-zA-Z-]+)*))?$) )
       - name: Version Check
         id: version_check
         env:
-          TEST1:"${{ env.in_version }}"
-          TEST2:"(${{ env.in_version }} =~ ^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)(-((0|[1-9][0-9]*|[0-9]*[a-zA-Z-][0-9a-zA-Z-]*)(\.(0|[1-9][0-9]*|[0-9]*[a-zA-Z-][0-9a-zA-Z-]*))*))?(\+([0-9a-zA-Z-]+(\.[0-9a-zA-Z-]+)*))?$)"
+          TEST1: "${{ env.in_version }}"          
         run: |
-          if [[ ${{ TEST1 }} =~ ${{ TEST2 }} ]]; then
+          if [[ ${{ TEST1 }} =~ ${{ LOCAL_TEST_VERSION }} ]]; then
               echo "Valid Version String"
           else
               echo ${{ TEST2 }}
