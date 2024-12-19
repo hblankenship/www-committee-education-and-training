@@ -16,7 +16,7 @@ jobs:
         env:
           TEST1: "${{ env.in_version }}"          
         run: |
-          echo ${{ LOCAL_TEST_VERSION }}
+          echo $LOCAL_TEST_VERSION
           #if [[ ${{ TEST1 }} =~ ${{ LOCAL_TEST_VERSION }} ]]; then
           #    echo "Valid Version String"
           #else
