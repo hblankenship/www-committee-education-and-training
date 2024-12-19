@@ -1,6 +1,6 @@
 name: GitHub Actions Demo
 env:
-  test_version: "0.0.0"
+  test_version: "0.0.0.0"
   in_version: "1.1.1.1.1.1"
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 on: [push]
